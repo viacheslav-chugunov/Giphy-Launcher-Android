@@ -1,8 +1,23 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlin.serialization)
 }
+
+val privateProperties = Properties().apply {
+    try {
+        load(rootDir.resolve("private.properties").inputStream())
+    } catch (e: java.io.FileNotFoundException) {
+        Properties()
+    }
+}
+
+val giphyApiKey: String = privateProperties.getProperty("giphy.api.key", "")
+val signingKeystorePassword: String = privateProperties.getProperty("signing.keystore.password", "")
+val signingKeyPassword: String = privateProperties.getProperty("signing.key.password", "")
 
 android {
     namespace = "viacheslav.chugunov.giphy_launcher"
@@ -16,7 +31,18 @@ android {
         versionName = libs.versions.versionName.get()
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField("String", "GIPHY_API_TOKEN", "\"${giphyApiKey}\"")
     }
+
+//    signingConfigs {
+//        register("release") {
+//            storeFile = file("../giphy-launcher.jks")
+//            storePassword = signingKeystorePassword
+//            keyAlias = "secure-pal-key"
+//            keyPassword = signingKeyPassword
+//        }
+//    }
 
     buildTypes {
         release {
@@ -36,6 +62,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -51,6 +78,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.koin.core)
+    implementation(libs.koin.compose)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
