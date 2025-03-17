@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "GiphyLauncher"
 include(":app")
+include(":core")
+include(":feature:storage")
+include(":feature:network")
