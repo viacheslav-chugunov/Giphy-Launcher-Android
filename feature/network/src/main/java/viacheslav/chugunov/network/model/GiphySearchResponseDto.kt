@@ -11,7 +11,7 @@ internal class GiphySearchResponseDto(
     @SerialName("data")
     val data: List<GiphyObjectDto> = emptyList(),
     @SerialName("pagination")
-    val pagination: GiphyPaginationDto,
+    val pagination: GiphyPaginationDto = GiphyPaginationDto(),
     @SerialName("meta")
     val meta: GiphyMetaDto = GiphyMetaDto()
 )

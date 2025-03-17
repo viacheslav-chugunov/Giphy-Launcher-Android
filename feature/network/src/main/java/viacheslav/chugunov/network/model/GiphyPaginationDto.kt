@@ -12,9 +12,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 internal class GiphyPaginationDto(
     @SerialName("offset")
-    val offset: Int,
+    val offset: Int = 0,
     @SerialName("total_count")
-    val totalCount: Int,
+    val totalCount: Int = 0,
     @SerialName("count")
-    val count: Int
+    val count: Int = 0
 )
