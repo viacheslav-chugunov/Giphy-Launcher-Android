@@ -15,7 +15,10 @@ internal interface GiphyPagingResponseDtoToPagingGifsResult {
                     Gif(
                         id = it.id,
                         previewUrl = it.images.previewGif.url,
-                        fullUrl = it.images.original.url
+                        fullUrl = it.images.fixedHeight.url,
+                        username = it.user.displayName,
+                        title = it.title,
+                        createdAt = it.createDatetime
                     )
                 },
                 paging = Paging(

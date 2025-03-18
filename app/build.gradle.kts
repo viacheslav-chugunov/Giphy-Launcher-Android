@@ -71,6 +71,7 @@ dependencies {
     implementation(project(":feature:network"))
     implementation(project(":feature:storage"))
     implementation(project(":feature:screen:gifs-list"))
+    implementation(project(":feature:screen:gif-details"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

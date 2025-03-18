@@ -1,4 +1,4 @@
-package viacheslav.chugunov.gifs_list.ui.component
+package viacheslav.chugunov.core.ui.component
 
 import android.widget.ImageView
 import androidx.compose.runtime.Composable

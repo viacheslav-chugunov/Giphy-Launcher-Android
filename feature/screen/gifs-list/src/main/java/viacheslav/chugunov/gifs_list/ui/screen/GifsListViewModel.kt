@@ -1,11 +1,7 @@
 package viacheslav.chugunov.gifs_list.ui.screen
 
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineExceptionHandler
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import viacheslav.chugunov.core.model.Paging
 import viacheslav.chugunov.core.repository.GifsNetworkRepository
 import viacheslav.chugunov.core.util.AsyncResource
@@ -55,8 +51,9 @@ class GifsListViewModel(
                     val oldGifs = state.asyncGifs.dataOrNull ?: emptyList()
                     val newGifs = asyncPagingGifs.data.gifs
                     gifsPaging = asyncPagingGifs.data.paging
+                    val actualGifs = (oldGifs + newGifs).toSet().toList()
                     state = state.copy(
-                        asyncGifs = AsyncResource.Success(oldGifs + newGifs),
+                        asyncGifs = AsyncResource.Success(actualGifs),
                         activeGifsPaging = false
                     )
                 }

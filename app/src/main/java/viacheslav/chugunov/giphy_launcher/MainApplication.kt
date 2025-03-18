@@ -4,7 +4,8 @@ import android.app.Application
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import viacheslav.chugunov.core.di.CoreModule
-import viacheslav.chugunov.gifs_list.ui.di.GifsListModule
+import viacheslav.chugunov.gif_details.di.GifDetailsModule
+import viacheslav.chugunov.gifs_list.di.GifsListModule
 import viacheslav.chugunov.giphy_launcher.di.AppModule
 import viacheslav.chugunov.network.di.NetworkModule
 
@@ -14,7 +15,7 @@ class MainApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MainApplication)
-            modules(AppModule, CoreModule, NetworkModule, GifsListModule)
+            modules(AppModule, CoreModule, NetworkModule, GifsListModule, GifDetailsModule)
         }
     }
 

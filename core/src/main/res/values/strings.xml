@@ -7,4 +7,11 @@
     <string name="service_unavailable_error_message">The gif service is currently unavailable, please try again later.</string>
     <string name="retry">Retry</string>
     <string name="search">Search</string>
+    <string name="details">Details</string>
+    <string name="open_fullscreen">Open fullscreen</string>
+    <string name="close_fullscreen">Close fullscreen</string>
+    <string name="title">Title</string>
+    <string name="uploaded_at">Uploaded at</string>
+    <string name="username">Username</string>
+    <string name="unknown">Unknown</string>
 </resources>
