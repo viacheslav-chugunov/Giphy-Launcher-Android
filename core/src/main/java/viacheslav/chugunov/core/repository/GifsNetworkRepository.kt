@@ -1,7 +1,10 @@
 package viacheslav.chugunov.core.repository
 
-import viacheslav.chugunov.core.model.GifsSearchResult
+import kotlinx.coroutines.flow.Flow
+import viacheslav.chugunov.core.model.PagingGifsResult
+import viacheslav.chugunov.core.util.AsyncResource
 
 interface GifsNetworkRepository {
-    suspend fun search(query: String, limit: Int, offset: Int): GifsSearchResult
+    suspend fun trending(limit: Int, offset: Int): AsyncResource<PagingGifsResult>
+    suspend fun search(query: String, limit: Int, offset: Int): AsyncResource<PagingGifsResult>
 }

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="back">Back</string>
+    <string name="feed">Feed</string>
+    <string name="uploading_gifs">Uploading gifs…</string>
+    <string name="no_internet_error_message">Failed to connect to the internet, check your connection and try again</string>
+    <string name="service_unavailable_error_message">The gif service is currently unavailable, please try again later.</string>
+    <string name="retry">Retry</string>
+    <string name="search">Search</string>
+</resources>

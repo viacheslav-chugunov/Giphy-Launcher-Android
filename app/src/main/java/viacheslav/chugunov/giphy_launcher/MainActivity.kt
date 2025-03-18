@@ -5,7 +5,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import viacheslav.chugunov.giphy_launcher.ui.theme.GiphyLauncherTheme
+import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
+import viacheslav.chugunov.giphy_launcher.ui.screen.MainScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -18,7 +19,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             GiphyLauncherTheme {
-
+                MainScreen()
             }
         }
     }

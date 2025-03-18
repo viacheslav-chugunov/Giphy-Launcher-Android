@@ -21,6 +21,7 @@ import kotlinx.serialization.Serializable
  * @param createDatetime The date this GIF was added to the GIPHY database.
  * @param importDatetime The creation or upload date from this GIF's source.
  * @param trendingDatetime The date on which this gif was marked trending, if applicable.
+ * @param images An object containing data for various available formats and sizes of this GIF.
  * @param title The title that appears on giphy.com for this GIF.
  * @param altText Alt text enables assistive programs to read descriptions of GIFs.
  * @see <a href="https://developers.giphy.com/docs/api/schema/#gif-object">Documentation</a>
@@ -61,6 +62,8 @@ internal class GiphyObjectDto(
     val importDatetime: String = "",
     @SerialName("trending_datetime")
     val trendingDatetime: String = "",
+    @SerialName("images")
+    val images: GiphyImagesDto = GiphyImagesDto(),
     @SerialName("title")
     val title: String = "",
     @SerialName("alt_text")

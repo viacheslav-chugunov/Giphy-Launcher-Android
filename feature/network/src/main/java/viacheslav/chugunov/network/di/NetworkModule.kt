@@ -10,7 +10,8 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import viacheslav.chugunov.core.repository.GifsNetworkRepository
 import viacheslav.chugunov.network.datasource.GiphyApi
-import viacheslav.chugunov.network.mapper.GiphySearchResponseDtoToGifsSearchResultMapper
+import viacheslav.chugunov.network.mapper.ThrowableToNetworkExceptionMapper
+import viacheslav.chugunov.network.mapper.GiphyPagingResponseDtoToPagingGifsResult
 import viacheslav.chugunov.network.repository.DefaultGifsNetworkRepository
 import java.util.concurrent.TimeUnit
 
@@ -26,8 +27,12 @@ val NetworkModule = module {
         ChuckerInterceptor.Builder(androidContext()).build()
     }
 
-    factory<GiphySearchResponseDtoToGifsSearchResultMapper> {
-        GiphySearchResponseDtoToGifsSearchResultMapper.Default()
+    factory<GiphyPagingResponseDtoToPagingGifsResult> {
+        GiphyPagingResponseDtoToPagingGifsResult.Default()
+    }
+
+    factory<ThrowableToNetworkExceptionMapper> {
+        ThrowableToNetworkExceptionMapper.Default()
     }
 
     factory<GiphyApi> {
@@ -46,6 +51,6 @@ val NetworkModule = module {
     }
 
     factory<GifsNetworkRepository> {
-        DefaultGifsNetworkRepository(get(), get(), get(), get())
+        DefaultGifsNetworkRepository(get(), get(), get(), get(), get())
     }
 }

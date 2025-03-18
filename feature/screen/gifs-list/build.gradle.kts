@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace = "viacheslav.chugunov.core"
-    compileSdk = libs.versions.compileSdkVersion.get().toInt()
+    namespace = "viacheslav.chugunov.gifs_list"
+    compileSdk = 35
 
     defaultConfig {
-        minSdk = libs.versions.minSdkVersion.get().toInt()
+        minSdk = 21
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
@@ -37,6 +37,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:network"))
+    implementation(project(":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
@@ -46,6 +48,9 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.koin.core)
+    implementation(libs.coil.compose)
+    implementation(libs.coil.gif)
+    implementation(libs.glide)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -1,5 +1,7 @@
 package viacheslav.chugunov.core.model
 
 class Gif(
-    val url: String
+    val id: String,
+    val previewUrl: String,
+    val fullUrl: String
 )
