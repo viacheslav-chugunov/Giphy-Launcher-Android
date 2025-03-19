@@ -61,7 +61,6 @@ fun GifsListScreen(
                 }
                 FailureComponent(
                     message = stringResource(messageRes),
-                    buttonText = stringResource(R.string.retry),
                     onRetry = {
                         handle(GifsListAction.RetryToLoadGifs)
                     }

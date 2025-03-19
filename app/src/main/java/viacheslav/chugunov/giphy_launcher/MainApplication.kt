@@ -8,6 +8,7 @@ import viacheslav.chugunov.gif_details.di.GifDetailsModule
 import viacheslav.chugunov.gifs_list.di.GifsListModule
 import viacheslav.chugunov.giphy_launcher.di.AppModule
 import viacheslav.chugunov.network.di.NetworkModule
+import viacheslav.chugunov.search_gifs.di.SearchGifsModule
 
 class MainApplication : Application() {
 
@@ -15,7 +16,7 @@ class MainApplication : Application() {
         super.onCreate()
         startKoin {
             androidContext(this@MainApplication)
-            modules(AppModule, CoreModule, NetworkModule, GifsListModule, GifDetailsModule)
+            modules(AppModule, CoreModule, NetworkModule, GifsListModule, GifDetailsModule, SearchGifsModule)
         }
     }
 

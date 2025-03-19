@@ -72,6 +72,7 @@ dependencies {
     implementation(project(":feature:storage"))
     implementation(project(":feature:screen:gifs-list"))
     implementation(project(":feature:screen:gif-details"))
+    implementation(project(":feature:screen:search-gifs"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

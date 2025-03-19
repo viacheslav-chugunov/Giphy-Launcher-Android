@@ -36,7 +36,7 @@ internal class DefaultGifsNetworkRepository(
         offset: Int
     ): AsyncResource<PagingGifsResult> = withContext(coroutineDispatchers.io) {
         try {
-            val response = giphyApi.search(appSecrets.giphyApiKey, query, limit, offset)
+            val response = giphyApi.search(appSecrets.giphyApiKey, query.trim(), limit, offset)
             AsyncResource.Success(giphyPagingResponseDtoToPagingGifsResult.map(response))
         } catch (e: Throwable) {
             AsyncResource.Failure(throwableToNetworkExceptionMapper.map(e))

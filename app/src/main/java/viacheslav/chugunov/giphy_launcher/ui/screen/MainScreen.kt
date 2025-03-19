@@ -18,6 +18,8 @@ import viacheslav.chugunov.giphy_launcher.NavDestinations
 import viacheslav.chugunov.giphy_launcher.extensions.navArgument
 import viacheslav.chugunov.giphy_launcher.extensions.singleNavigate
 import viacheslav.chugunov.giphy_launcher.extensions.singlePopBackStack
+import viacheslav.chugunov.search_gifs.ui.screen.SearchGifsScreen
+import viacheslav.chugunov.search_gifs.ui.screen.SearchGifsViewModel
 
 @Composable
 fun MainScreen() {
@@ -47,11 +49,23 @@ fun MainScreen() {
             GifDetailsScreen(
                 state = viewModel.stateValue,
                 handle = viewModel::handleAction,
-                navigateBack = { navController.singlePopBackStack() }
+                navigateBack = {
+                    navController.singlePopBackStack()
+                }
             )
         }
         composable<NavDestinations.SearchGifs> {
-
+            val viewModel = koinViewModel<SearchGifsViewModel>()
+            SearchGifsScreen(
+                state = viewModel.stateValue,
+                handle = viewModel::handleAction,
+                openDetailsScreen = { gif ->
+                    navController.singleNavigate(NavDestinations.GifDetails(gif))
+                },
+                navigateBack = {
+                    navController.singlePopBackStack()
+                }
+            )
         }
     }
 }

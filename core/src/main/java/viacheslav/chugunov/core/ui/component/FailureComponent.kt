@@ -14,14 +14,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import viacheslav.chugunov.core.R
 
 @Composable
 fun FailureComponent(
     message: String,
-    buttonText: String,
-    onRetry: () -> Unit
+    buttonText: String = stringResource(R.string.retry),
+    onRetry: (() -> Unit)? = null,
+    showRetry: Boolean = true
 ) {
     Column(
         modifier = Modifier
@@ -37,14 +40,16 @@ fun FailureComponent(
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium
         )
-        Spacer(Modifier.height(16.dp))
-        Button(
-            onClick = onRetry
-        ) {
-            Text(
-                text = buttonText,
-                style = MaterialTheme.typography.labelLarge
-            )
+        if (showRetry) {
+            Spacer(Modifier.height(16.dp))
+            Button(
+                onClick = { onRetry?.invoke() }
+            ) {
+                Text(
+                    text = buttonText,
+                    style = MaterialTheme.typography.labelLarge
+                )
+            }
         }
         Spacer(Modifier.weight(1.75f))
     }

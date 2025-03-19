@@ -5,6 +5,7 @@
     <string name="uploading_gifs">Uploading gifs…</string>
     <string name="no_internet_error_message">Failed to connect to the internet, check your connection and try again</string>
     <string name="service_unavailable_error_message">The gif service is currently unavailable, please try again later.</string>
+    <string name="gifs_not_found">Gifs not found</string>
     <string name="retry">Retry</string>
     <string name="search">Search</string>
     <string name="details">Details</string>
@@ -14,4 +15,6 @@
     <string name="uploaded_at">Uploaded at</string>
     <string name="username">Username</string>
     <string name="unknown">Unknown</string>
+    <string name="clear">Clear</string>
+    <string name="empty_gif_search_request">Enter the name of the gif you want to find</string>
 </resources>
