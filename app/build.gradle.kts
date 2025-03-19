@@ -35,14 +35,14 @@ android {
         buildConfigField("String", "GIPHY_API_TOKEN", "\"${giphyApiKey}\"")
     }
 
-//    signingConfigs {
-//        register("release") {
-//            storeFile = file("../giphy-launcher.jks")
-//            storePassword = signingKeystorePassword
-//            keyAlias = "secure-pal-key"
-//            keyPassword = signingKeyPassword
-//        }
-//    }
+    signingConfigs {
+        register("release") {
+            storeFile = file("../giphy-launcher-keystore.jks")
+            storePassword = signingKeystorePassword
+            keyAlias = "giphy-key"
+            keyPassword = signingKeyPassword
+        }
+    }
 
     buildTypes {
         release {
@@ -51,6 +51,7 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            signingConfig = signingConfigs["release"]
         }
     }
     compileOptions {
