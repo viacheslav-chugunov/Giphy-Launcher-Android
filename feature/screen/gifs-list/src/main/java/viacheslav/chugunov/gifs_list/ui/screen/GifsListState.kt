@@ -5,5 +5,5 @@ import viacheslav.chugunov.core.util.AsyncResource
 
 data class GifsListState(
     val asyncGifs: AsyncResource<List<Gif>> = AsyncResource.Loading(),
-    val activeGifsPaging: Boolean = false
+    val activeGifsPaging: Boolean = false,
 )

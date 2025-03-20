@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -15,11 +16,15 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.debounce
 import viacheslav.chugunov.core.R
 import viacheslav.chugunov.core.model.Gif
 import viacheslav.chugunov.core.ui.component.FailureComponent
@@ -29,12 +34,13 @@ import viacheslav.chugunov.core.util.AsyncResource
 import viacheslav.chugunov.core.util.NetworkException
 import viacheslav.chugunov.core.ui.component.GifImageComponent
 
+@OptIn(FlowPreview::class)
 @Composable
 fun GifsListScreen(
     state: GifsListState,
     handle: (GifsListAction) -> Unit,
     openDetailsScreen: (Gif) -> Unit,
-    openSearchScreen: () -> Unit
+    openSearchScreen: () -> Unit,
 ) {
     Column(
         modifier = Modifier.fillMaxSize()
