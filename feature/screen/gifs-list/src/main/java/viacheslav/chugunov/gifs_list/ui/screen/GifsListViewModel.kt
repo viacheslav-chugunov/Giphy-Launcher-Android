@@ -1,6 +1,7 @@
 package viacheslav.chugunov.gifs_list.ui.screen
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -9,10 +10,12 @@ import kotlinx.coroutines.sync.withLock
 import viacheslav.chugunov.core.model.Paging
 import viacheslav.chugunov.core.repository.GifsNetworkRepository
 import viacheslav.chugunov.core.util.AsyncResource
+import viacheslav.chugunov.core.util.CoroutineDispatchers
 import viacheslav.chugunov.core.util.base.BaseViewModel
 
 class GifsListViewModel(
-    private val gifsNetworkRepository: GifsNetworkRepository
+    private val gifsNetworkRepository: GifsNetworkRepository,
+    private val coroutineDispatchers: CoroutineDispatchers
 ) : BaseViewModel<GifsListState, GifsListAction>(GifsListState()) {
     private var isGifsLoading: Boolean = false
     private var gifsPaging: Paging = Paging.EMPTY
@@ -25,13 +28,12 @@ class GifsListViewModel(
     override fun handleAction(action: GifsListAction) {
         when (action) {
             GifsListAction.RetryToLoadGifs -> {
-                gifsPaging = Paging.EMPTY
                 state = state.copy(asyncGifs = AsyncResource.Loading())
                 loadGifs()
             }
             is GifsListAction.RequestNewGifs -> {
                 val shownGifs = state.asyncGifs.dataOrNull ?: emptyList()
-                if (!gifsPaging.isEmpty && action.lastVisibleIndex >= shownGifs.size - 1) {
+                if (action.lastVisibleIndex >= shownGifs.size - 1) {
                     state = state.copy(activeGifsPaging = !isGifsLoading)
                     loadGifs()
                 }
@@ -40,7 +42,7 @@ class GifsListViewModel(
     }
 
     private fun loadGifs() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch(coroutineDispatchers.io) {
             loadGifsMutex.withLock {
                 if (isGifsLoading) return@launch
                 isGifsLoading = true
@@ -54,18 +56,18 @@ class GifsListViewModel(
                         )
                     }
                     is AsyncResource.Success -> {
-                        val oldGifs = state.asyncGifs.dataOrNull ?: emptyList()
+                        val oldGifs = state.asyncGifs.dataOrNull ?: emptySet()
                         val newGifs = asyncPagingGifs.data.gifs
                         gifsPaging = asyncPagingGifs.data.paging
-                        val actualGifs = (oldGifs + newGifs).toSet().toList()
+                        val actualGifs = oldGifs.toMutableSet()
+                        actualGifs.addAll(newGifs)
                         state = state.copy(
-                            asyncGifs = AsyncResource.Success(actualGifs),
+                            asyncGifs = AsyncResource.Success(actualGifs.toList()),
                             activeGifsPaging = false
                         )
                     }
                     else -> {}
                 }
-                delay(1500)
                 isGifsLoading = false
             }
         }

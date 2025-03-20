@@ -6,6 +6,6 @@ import viacheslav.chugunov.gifs_list.ui.screen.GifsListViewModel
 
 val GifsListModule = module {
     viewModel {
-        GifsListViewModel(get())
+        GifsListViewModel(get(), get())
     }
 }
