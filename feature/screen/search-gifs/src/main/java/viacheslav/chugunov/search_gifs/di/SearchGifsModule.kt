@@ -5,6 +5,6 @@ import viacheslav.chugunov.search_gifs.ui.screen.SearchGifsViewModel
 
 val SearchGifsModule = module {
     factory<SearchGifsViewModel> {
-        SearchGifsViewModel(get())
+        SearchGifsViewModel(get(), get())
     }
 }

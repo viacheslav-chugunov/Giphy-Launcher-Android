@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
 import androidx.compose.foundation.lazy.staggeredgrid.items
@@ -63,7 +64,7 @@ fun SearchGifsScreen(
                 handle(SearchGifsAction.Search(query))
             },
             onNavigationBack = navigateBack,
-            showProgress = state.queryProcessing && state.query.isNotBlank(),
+            showProgress = state.queryProcessing && state.query.isNotBlank() || state.activeGifsPaging,
             focusRequester = focusRequester
         )
         when (val asyncGifs = state.asyncGifs) {

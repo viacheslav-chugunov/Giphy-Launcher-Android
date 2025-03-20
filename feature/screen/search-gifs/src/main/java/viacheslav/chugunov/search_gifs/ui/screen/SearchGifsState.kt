@@ -6,6 +6,7 @@ import viacheslav.chugunov.core.util.AsyncResource
 data class SearchGifsState(
     val query: String = "",
     val queryProcessing: Boolean = false,
-    val asyncGifs: AsyncResource<List<Gif>> = AsyncResource.Success(emptyList())
+    val asyncGifs: AsyncResource<List<Gif>> = AsyncResource.Success(emptyList()),
+    val activeGifsPaging: Boolean = false
 ) {
 }
