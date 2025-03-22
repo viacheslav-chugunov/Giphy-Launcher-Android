@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 
 abstract class BaseViewModel<State, Action>(initialState: State) : ViewModel() {
     private val mutableStateFlow = MutableStateFlow(initialState)

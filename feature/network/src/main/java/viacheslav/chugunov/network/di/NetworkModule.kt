@@ -11,7 +11,7 @@ import retrofit2.Retrofit
 import viacheslav.chugunov.core.repository.GifsNetworkRepository
 import viacheslav.chugunov.network.datasource.GiphyApi
 import viacheslav.chugunov.network.mapper.ThrowableToNetworkExceptionMapper
-import viacheslav.chugunov.network.mapper.GiphyPagingResponseDtoToPagingGifsResult
+import viacheslav.chugunov.network.mapper.GiphyPagingResponseDtoToPagingGifsResultMapper
 import viacheslav.chugunov.network.repository.DefaultGifsNetworkRepository
 import java.util.concurrent.TimeUnit
 
@@ -27,8 +27,8 @@ val NetworkModule = module {
         ChuckerInterceptor.Builder(androidContext()).build()
     }
 
-    factory<GiphyPagingResponseDtoToPagingGifsResult> {
-        GiphyPagingResponseDtoToPagingGifsResult.Default()
+    factory<GiphyPagingResponseDtoToPagingGifsResultMapper> {
+        GiphyPagingResponseDtoToPagingGifsResultMapper.Default()
     }
 
     factory<ThrowableToNetworkExceptionMapper> {

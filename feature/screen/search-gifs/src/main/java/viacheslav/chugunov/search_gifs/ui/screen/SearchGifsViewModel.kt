@@ -3,7 +3,6 @@ package viacheslav.chugunov.search_gifs.ui.screen
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
 import kotlinx.coroutines.flow.onEach
@@ -77,6 +76,8 @@ class SearchGifsViewModel(
             loadGifsMutex.withLock {
                 if (isGifsLoading) return@launch
                 isGifsLoading = true
+                val offset = gifsPaging.got
+                if (offset >= 5000) return@launch
                 val asyncPagingGifs = gifsNetworkRepository.search(query, 50,  gifsPaging.got)
                 when (asyncPagingGifs) {
                     is AsyncResource.Failure -> {

@@ -10,7 +10,7 @@ internal interface GiphyApi {
     suspend fun trending(
         @Query("api_key") apiKey: String,
         @IntRange(from = 1) @Query("limit") limit: Int,
-        @IntRange(from = 499) @Query("offset") offset: Int
+        @IntRange(from = 0, to = 499) @Query("offset") offset: Int
     ): GiphyPagingResponseDto
 
     @GET("gifs/search")

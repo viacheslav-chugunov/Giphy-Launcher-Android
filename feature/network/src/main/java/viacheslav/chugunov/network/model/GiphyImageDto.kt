@@ -15,7 +15,7 @@ import kotlinx.serialization.Serializable
  * @see <a href="https://developers.giphy.com/docs/api/schema#image-object">Documentation</a>
  * */
 @Serializable
-class GiphyImageDto(
+internal class GiphyImageDto(
     @SerialName("url")
     val url: String = "",
     @SerialName("width")

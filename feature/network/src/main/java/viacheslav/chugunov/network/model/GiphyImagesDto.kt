@@ -27,7 +27,7 @@ import kotlinx.serialization.Serializable
  * @see <a href="https://developers.giphy.com/docs/api/schema#image-object">Documentation</a>
  * */
 @Serializable
-class GiphyImagesDto(
+internal class GiphyImagesDto(
     @SerialName("fixed_height")
     val fixedHeight: GiphyImageDto = GiphyImageDto(),
     @SerialName("fixed_height_still")

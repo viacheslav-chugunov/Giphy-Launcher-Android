@@ -1,9 +1,6 @@
 package viacheslav.chugunov.gifs_list.ui.screen
 
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
@@ -46,7 +43,9 @@ class GifsListViewModel(
             loadGifsMutex.withLock {
                 if (isGifsLoading) return@launch
                 isGifsLoading = true
-                val asyncPagingGifs = gifsNetworkRepository.trending(limit = 50,  offset = gifsPaging.got)
+                val offset = gifsPaging.got
+                if (offset >= 500) return@launch
+                val asyncPagingGifs = gifsNetworkRepository.trending(limit = 50,  offset = offset)
                 when (asyncPagingGifs) {
                     is AsyncResource.Failure -> {
                         val error = asyncPagingGifs.error

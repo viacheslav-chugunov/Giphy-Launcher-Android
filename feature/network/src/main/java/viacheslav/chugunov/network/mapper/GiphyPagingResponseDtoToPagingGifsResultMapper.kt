@@ -7,10 +7,10 @@ import viacheslav.chugunov.network.model.GiphyPagingResponseDto
 import java.text.SimpleDateFormat
 import java.util.Locale
 
-internal interface GiphyPagingResponseDtoToPagingGifsResult {
+internal interface GiphyPagingResponseDtoToPagingGifsResultMapper {
     fun map(dto: GiphyPagingResponseDto): PagingGifsResult
 
-    class Default : GiphyPagingResponseDtoToPagingGifsResult {
+    class Default : GiphyPagingResponseDtoToPagingGifsResultMapper {
         override fun map(dto: GiphyPagingResponseDto): PagingGifsResult {
             val timeParser = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ENGLISH)
             val timeFormatter = SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH)

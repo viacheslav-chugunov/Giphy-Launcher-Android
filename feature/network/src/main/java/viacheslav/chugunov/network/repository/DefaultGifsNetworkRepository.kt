@@ -8,12 +8,12 @@ import viacheslav.chugunov.core.util.AsyncResource
 import viacheslav.chugunov.core.util.CoroutineDispatchers
 import viacheslav.chugunov.network.datasource.GiphyApi
 import viacheslav.chugunov.network.mapper.ThrowableToNetworkExceptionMapper
-import viacheslav.chugunov.network.mapper.GiphyPagingResponseDtoToPagingGifsResult
+import viacheslav.chugunov.network.mapper.GiphyPagingResponseDtoToPagingGifsResultMapper
 
 internal class DefaultGifsNetworkRepository(
     private val giphyApi: GiphyApi,
     private val coroutineDispatchers: CoroutineDispatchers,
-    private val giphyPagingResponseDtoToPagingGifsResult: GiphyPagingResponseDtoToPagingGifsResult,
+    private val giphyPagingResponseDtoToPagingGifsResultMapper: GiphyPagingResponseDtoToPagingGifsResultMapper,
     private val throwableToNetworkExceptionMapper: ThrowableToNetworkExceptionMapper,
     private val appSecrets: AppSecrets
 ) : GifsNetworkRepository {
@@ -22,9 +22,11 @@ internal class DefaultGifsNetworkRepository(
         limit: Int,
         offset: Int
     ): AsyncResource<PagingGifsResult> = withContext(coroutineDispatchers.io) {
+        if (limit <= 0) throw IllegalArgumentException("limit must be greater than zero, but limit = $limit was passed")
+        if (offset !in 0..499) throw IllegalArgumentException("offset must be in range from 0 to 499, but offset = $offset was passed")
         try {
             val response = giphyApi.trending(appSecrets.giphyApiKey, limit, offset)
-            AsyncResource.Success(giphyPagingResponseDtoToPagingGifsResult.map(response))
+            AsyncResource.Success(giphyPagingResponseDtoToPagingGifsResultMapper.map(response))
         } catch (e: Throwable) {
             AsyncResource.Failure(throwableToNetworkExceptionMapper.map(e))
         }
@@ -35,9 +37,12 @@ internal class DefaultGifsNetworkRepository(
         limit: Int,
         offset: Int
     ): AsyncResource<PagingGifsResult> = withContext(coroutineDispatchers.io) {
+        if (query.isBlank()) throw IllegalArgumentException("query must not be blank, but query = $query was passed")
+        if (limit <= 0) throw IllegalArgumentException("limit must be greater than zero, but limit = $limit was passed")
+        if (offset !in 0..4999) throw IllegalArgumentException("offset must be in range from 0 to 4999, but offset = $offset was passed")
         try {
             val response = giphyApi.search(appSecrets.giphyApiKey, query.trim(), limit, offset)
-            AsyncResource.Success(giphyPagingResponseDtoToPagingGifsResult.map(response))
+            AsyncResource.Success(giphyPagingResponseDtoToPagingGifsResultMapper.map(response))
         } catch (e: Throwable) {
             AsyncResource.Failure(throwableToNetworkExceptionMapper.map(e))
         }
