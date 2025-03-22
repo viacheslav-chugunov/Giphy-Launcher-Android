@@ -2,6 +2,7 @@ package viacheslav.chugunov.search_gifs.ui.screen
 
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.debounce
@@ -33,7 +34,7 @@ class SearchGifsViewModel(
                 }
                 .debounce {
                     if (state.query.isNotBlank()) {
-                        3000
+                        1500
                     } else {
                         0
                     }
@@ -59,7 +60,6 @@ class SearchGifsViewModel(
             is SearchGifsAction.RequestNewGifs -> {
                 val shownGifs = state.asyncGifs.dataOrNull ?: emptyList()
                 if (action.lastVisibleIndex >= shownGifs.size - 1) {
-                    state = state.copy(activeGifsPaging = !isGifsLoading)
                     searchGifs()
                 }
             }
@@ -75,10 +75,11 @@ class SearchGifsViewModel(
         viewModelScope.launch(coroutineDispatchers.io) {
             loadGifsMutex.withLock {
                 if (isGifsLoading) return@launch
-                isGifsLoading = true
                 val offset = gifsPaging.got
                 if (offset >= 5000) return@launch
-                val asyncPagingGifs = gifsNetworkRepository.search(query, 50,  gifsPaging.got)
+                state = state.copy(activeGifsPaging = true)
+                isGifsLoading = true
+                val asyncPagingGifs = gifsNetworkRepository.search(query, 50,  offset)
                 when (asyncPagingGifs) {
                     is AsyncResource.Failure -> {
                         val error = asyncPagingGifs.error
@@ -88,7 +89,7 @@ class SearchGifsViewModel(
                         )
                     }
                     is AsyncResource.Success -> {
-                        val oldGifs = state.asyncGifs.dataOrNull ?: emptySet()
+                        val oldGifs = state.asyncGifs.dataOrNull ?: emptyList()
                         val newGifs = asyncPagingGifs.data.gifs
                         gifsPaging = asyncPagingGifs.data.paging
                         val actualGifs = oldGifs.toMutableSet()

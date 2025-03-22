@@ -1,9 +1,11 @@
 package viacheslav.chugunov.gifs_list.ui.screen
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
+import kotlinx.coroutines.withContext
 import viacheslav.chugunov.core.model.Paging
 import viacheslav.chugunov.core.repository.GifsNetworkRepository
 import viacheslav.chugunov.core.util.AsyncResource

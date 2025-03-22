@@ -70,7 +70,7 @@ fun GifsListScreen(
             }
             is AsyncResource.Loading -> {
                 LoadingComponent(
-                    message = stringResource(R.string.uploading_gifs)
+                    message = stringResource(R.string.loading_gifs)
                 )
             }
             is AsyncResource.Success -> {

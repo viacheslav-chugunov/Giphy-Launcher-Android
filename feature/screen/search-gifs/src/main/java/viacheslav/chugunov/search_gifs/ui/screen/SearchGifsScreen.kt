@@ -22,6 +22,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,6 +38,7 @@ import viacheslav.chugunov.core.R
 import viacheslav.chugunov.core.model.Gif
 import viacheslav.chugunov.core.ui.component.FailureComponent
 import viacheslav.chugunov.core.ui.component.GifImageComponent
+import viacheslav.chugunov.core.ui.component.MessageComponent
 import viacheslav.chugunov.core.util.AsyncResource
 import viacheslav.chugunov.core.util.NetworkException
 import viacheslav.chugunov.search_gifs.ui.component.SearchableTopAppBarComponent
@@ -50,6 +52,7 @@ fun SearchGifsScreen(
 ) {
     val focusRequester = remember { FocusRequester() }
     val keyboard = LocalSoftwareKeyboardController.current
+    val isLoading = state.queryProcessing || state.activeGifsPaging
 
     LaunchedEffect(focusRequester) {
         focusRequester.requestFocus()
@@ -64,7 +67,7 @@ fun SearchGifsScreen(
                 handle(SearchGifsAction.Search(query))
             },
             onNavigationBack = navigateBack,
-            showProgress = state.queryProcessing && state.query.isNotBlank() || state.activeGifsPaging,
+            showProgress = isLoading,
             focusRequester = focusRequester
         )
         when (val asyncGifs = state.asyncGifs) {
@@ -88,30 +91,18 @@ fun SearchGifsScreen(
 
             }
             is AsyncResource.Success -> {
-                val gifs = asyncGifs.data
-                if (gifs.isEmpty() && (!state.queryProcessing || state.query.isBlank())) {
-                    val messageRes = if (state.query.isBlank()) {
-                        R.string.empty_gif_search_request
-                    } else {
-                        R.string.gifs_not_found
-                    }
-                    Column(
-                        modifier = Modifier
-                            .fillMaxSize()
-                            .padding(16.dp),
-                        verticalArrangement = Arrangement.Center,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        Spacer(Modifier.weight(1f))
-                        Text(
-                            text = stringResource(id = messageRes),
-                            style = MaterialTheme.typography.titleMedium,
-                            color = MaterialTheme.colorScheme.onSurface,
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center
-                        )
-                        Spacer(Modifier.weight(1.75f))
-                    }
+                if (isLoading) {
+                    MessageComponent(
+                        message = stringResource(id = R.string.loading_gifs)
+                    )
+                } else if (state.query.isBlank()) {
+                    MessageComponent(
+                        message = stringResource(id = R.string.empty_gif_search_request)
+                    )
+                } else if (asyncGifs.data.isEmpty()) {
+                    MessageComponent(
+                        message = stringResource(id = R.string.gifs_not_found)
+                    )
                 } else {
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(150.dp),
