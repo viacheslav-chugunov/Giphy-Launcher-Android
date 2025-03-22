@@ -70,7 +70,6 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":feature:network"))
-    implementation(project(":feature:storage"))
     implementation(project(":feature:screen:gifs-list"))
     implementation(project(":feature:screen:gif-details"))
     implementation(project(":feature:screen:search-gifs"))

@@ -14,7 +14,7 @@ import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
 import viacheslav.chugunov.core.R
 
 @Composable
-fun DescriptionFieldComponent(
+internal fun DescriptionFieldComponent(
     label: String,
     value: String,
     modifier: Modifier = Modifier

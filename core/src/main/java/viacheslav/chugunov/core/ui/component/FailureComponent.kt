@@ -22,9 +22,7 @@ import viacheslav.chugunov.core.R
 @Composable
 fun FailureComponent(
     message: String,
-    buttonText: String = stringResource(R.string.retry),
     onRetry: (() -> Unit)? = null,
-    showRetry: Boolean = true
 ) {
     Column(
         modifier = Modifier
@@ -40,16 +38,14 @@ fun FailureComponent(
             textAlign = TextAlign.Center,
             style = MaterialTheme.typography.titleMedium
         )
-        if (showRetry) {
-            Spacer(Modifier.height(16.dp))
-            Button(
-                onClick = { onRetry?.invoke() }
-            ) {
-                Text(
-                    text = buttonText,
-                    style = MaterialTheme.typography.labelLarge
-                )
-            }
+        Spacer(Modifier.height(16.dp))
+        Button(
+            onClick = { onRetry?.invoke() }
+        ) {
+            Text(
+                text = stringResource(R.string.retry),
+                style = MaterialTheme.typography.labelLarge
+            )
         }
         Spacer(Modifier.weight(1.75f))
     }

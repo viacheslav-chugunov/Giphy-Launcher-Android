@@ -38,6 +38,8 @@ import viacheslav.chugunov.core.R
 import viacheslav.chugunov.core.model.Gif
 import viacheslav.chugunov.core.ui.component.FailureComponent
 import viacheslav.chugunov.core.ui.component.GifImageComponent
+import viacheslav.chugunov.core.ui.component.GifsGridComponent
+import viacheslav.chugunov.core.ui.component.LoadingComponent
 import viacheslav.chugunov.core.ui.component.MessageComponent
 import viacheslav.chugunov.core.util.AsyncResource
 import viacheslav.chugunov.core.util.NetworkException
@@ -91,27 +93,47 @@ fun SearchGifsScreen(
 
             }
             is AsyncResource.Success -> {
-                if (isLoading) {
-                    MessageComponent(
+                val gifs = asyncGifs.data
+
+                if (isLoading && gifs.isEmpty()) {
+                    LoadingComponent(
                         message = stringResource(id = R.string.loading_gifs)
                     )
-                } else if (state.query.isBlank()) {
+                } else if (state.query.isBlank() && !isLoading) {
                     MessageComponent(
                         message = stringResource(id = R.string.empty_gif_search_request)
                     )
-                } else if (asyncGifs.data.isEmpty()) {
+                } else if (gifs.isEmpty() && !isLoading) {
                     MessageComponent(
                         message = stringResource(id = R.string.gifs_not_found)
                     )
                 } else {
+                    GifsGridComponent(
+                        gifs = gifs,
+                        onGifClick = openDetailsScreen,
+                        onRequestNewGifs = {
+                            handle(SearchGifsAction.RequestNewGifs)
+                        }
+                    )
+
+                    val gridState = rememberLazyGridState()
+                    val canScrollForward = gridState.canScrollForward
+
+                    LaunchedEffect(canScrollForward) {
+                        if (!canScrollForward && gifs.isNotEmpty()) {
+                            handle(SearchGifsAction.RequestNewGifs)
+                        }
+                    }
+
                     LazyVerticalGrid(
                         columns = GridCells.Adaptive(150.dp),
                         verticalArrangement = Arrangement.spacedBy(6.dp),
                         horizontalArrangement = Arrangement.spacedBy(6.dp),
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(8.dp),
+                        state = gridState
                     ) {
-                        items(asyncGifs.data, key = { it.id }) { gif ->
+                        items(gifs, key = { it.id }) { gif ->
                             GifImageComponent(
                                 url = gif.previewUrl,
                                 contentDescription = gif.title,

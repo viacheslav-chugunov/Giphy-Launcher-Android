@@ -7,7 +7,6 @@ class GifDetailsViewModel(
     gif: Gif
 ) : BaseViewModel<GifDetailsState, GifDetailsAction>(GifDetailsState(gif)) {
 
-
     override fun handleAction(action: GifDetailsAction) {
         when (action) {
             is GifDetailsAction.SetGifFullscreen -> {

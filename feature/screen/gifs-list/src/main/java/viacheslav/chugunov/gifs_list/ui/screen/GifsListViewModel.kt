@@ -5,7 +5,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
-import kotlinx.coroutines.withContext
 import viacheslav.chugunov.core.model.Paging
 import viacheslav.chugunov.core.repository.GifsNetworkRepository
 import viacheslav.chugunov.core.util.AsyncResource
@@ -30,12 +29,9 @@ class GifsListViewModel(
                 state = state.copy(asyncGifs = AsyncResource.Loading())
                 loadGifs()
             }
-            is GifsListAction.RequestNewGifs -> {
-                val shownGifs = state.asyncGifs.dataOrNull ?: emptyList()
-                if (action.lastVisibleIndex >= shownGifs.size - 1) {
-                    state = state.copy(activeGifsPaging = !isGifsLoading)
-                    loadGifs()
-                }
+            GifsListAction.RequestNewGifs -> {
+                state = state.copy(activeGifsPaging = !isGifsLoading)
+                loadGifs()
             }
         }
     }

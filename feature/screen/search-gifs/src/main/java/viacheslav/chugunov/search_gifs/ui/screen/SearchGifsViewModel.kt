@@ -55,13 +55,11 @@ class SearchGifsViewModel(
             }
             is SearchGifsAction.Search -> {
                 state = state.copy(query = action.query)
+                gifsPaging = Paging.EMPTY
                 queryFlow.tryEmit(action.query)
             }
-            is SearchGifsAction.RequestNewGifs -> {
-                val shownGifs = state.asyncGifs.dataOrNull ?: emptyList()
-                if (action.lastVisibleIndex >= shownGifs.size - 1) {
-                    searchGifs()
-                }
+            SearchGifsAction.RequestNewGifs -> {
+                searchGifs()
             }
         }
     }

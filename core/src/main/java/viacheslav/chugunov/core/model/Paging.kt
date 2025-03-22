@@ -9,7 +9,4 @@ class Paging(
         val EMPTY = Paging(0, 0)
     }
 
-    val isEmpty: Boolean
-        get() = total == 0 && got == 0
-
 }

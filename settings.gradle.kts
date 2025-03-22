@@ -22,7 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "GiphyLauncher"
 include(":app")
 include(":core")
-include(":feature:storage")
 include(":feature:network")
 include(":feature:screen:gifs-list")
 include(":feature:screen:gif-details")
