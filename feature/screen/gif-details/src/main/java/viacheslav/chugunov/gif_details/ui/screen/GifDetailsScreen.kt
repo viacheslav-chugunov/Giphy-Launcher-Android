@@ -19,11 +19,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import viacheslav.chugunov.core.R
 import viacheslav.chugunov.core.extensions.isLandscape
+import viacheslav.chugunov.core.model.Gif
 import viacheslav.chugunov.core.ui.component.GifImageComponent
 import viacheslav.chugunov.core.ui.component.TopAppBarComponent
+import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
 import viacheslav.chugunov.gif_details.ui.component.DescriptionFieldComponent
 import viacheslav.chugunov.gif_details.ui.component.GifDescriptionComponent
 
@@ -161,5 +164,26 @@ fun GifDetailsScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    GiphyLauncherTheme {
+        GifDetailsScreen(
+            state = GifDetailsState(
+                Gif(
+                    id = "id",
+                    title = "title",
+                    username = "username",
+                    createdAt = "createdAt",
+                    previewUrl = "https://cdn.shortpixel.ai/spai/q_lossy+w_1345+to_webp+ret_img/mailfloss.com/storage/2019/08/5d667803a7a67_gif1-Everyonelovesgifs_4ef1dbef8a604a3e1b26eebf2c000ef0.gif",
+                    fullUrl = "https://cdn.shortpixel.ai/spai/q_lossy+w_1345+to_webp+ret_img/mailfloss.com/storage/2019/08/5d667803a7a67_gif1-Everyonelovesgifs_4ef1dbef8a604a3e1b26eebf2c000ef0.gif"
+                )
+            ),
+            handle = {},
+            navigateBack = {}
+        )
     }
 }

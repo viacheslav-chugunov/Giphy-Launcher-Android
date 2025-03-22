@@ -32,6 +32,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import kotlinx.coroutines.delay
 import viacheslav.chugunov.core.R
@@ -41,6 +42,7 @@ import viacheslav.chugunov.core.ui.component.GifImageComponent
 import viacheslav.chugunov.core.ui.component.GifsGridComponent
 import viacheslav.chugunov.core.ui.component.LoadingComponent
 import viacheslav.chugunov.core.ui.component.MessageComponent
+import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
 import viacheslav.chugunov.core.util.AsyncResource
 import viacheslav.chugunov.core.util.NetworkException
 import viacheslav.chugunov.search_gifs.ui.component.SearchableTopAppBarComponent
@@ -149,5 +151,18 @@ fun SearchGifsScreen(
                 }
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    GiphyLauncherTheme {
+        SearchGifsScreen(
+            state = SearchGifsState(),
+            handle = {},
+            openDetailsScreen = {},
+            navigateBack = {}
+        )
     }
 }

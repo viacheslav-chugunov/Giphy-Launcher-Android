@@ -16,12 +16,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.gif.GifDrawable
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
 import com.skydoves.landscapist.rememberDrawablePainter
+import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
 
 @Composable
 fun GifImageComponent(
@@ -72,5 +74,16 @@ fun GifImageComponent(
         } else {
             CircularProgressIndicator()
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    GiphyLauncherTheme {
+        GifImageComponent(
+            url = "https://cdn.shortpixel.ai/spai/q_lossy+w_1345+to_webp+ret_img/mailfloss.com/storage/2019/08/5d667803a7a67_gif1-Everyonelovesgifs_4ef1dbef8a604a3e1b26eebf2c000ef0.gif",
+            contentDescription = "contentDescription"
+        )
     }
 }

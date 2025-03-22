@@ -18,7 +18,9 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import viacheslav.chugunov.core.R
+import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -104,5 +106,18 @@ internal fun SearchableTopAppBarComponent(
                 modifier = Modifier.fillMaxWidth()
             )
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    GiphyLauncherTheme {
+        SearchableTopAppBarComponent(
+            query = "Query",
+            onQueryChange = {},
+            showProgress = false,
+            onNavigationBack = {}
+        )
     }
 }

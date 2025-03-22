@@ -18,9 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalConfiguration
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import viacheslav.chugunov.core.extensions.isLandscape
 import viacheslav.chugunov.core.model.Gif
+import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
 
 @Composable
 fun GifsGridComponent(
@@ -83,5 +85,17 @@ fun GifsGridComponent(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    GiphyLauncherTheme {
+        GifsGridComponent(
+            gifs = emptyList(),
+            onGifClick = {},
+            onRequestNewGifs = {}
+        )
     }
 }

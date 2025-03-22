@@ -8,12 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import viacheslav.chugunov.core.R
 import viacheslav.chugunov.core.model.Gif
 import viacheslav.chugunov.core.ui.component.FailureComponent
 import viacheslav.chugunov.core.ui.component.GifsGridComponent
 import viacheslav.chugunov.core.ui.component.LoadingComponent
 import viacheslav.chugunov.core.ui.component.TopAppBarComponent
+import viacheslav.chugunov.core.ui.theme.GiphyLauncherTheme
 import viacheslav.chugunov.core.util.AsyncResource
 import viacheslav.chugunov.core.util.NetworkException
 
@@ -69,5 +71,18 @@ fun GifsListScreen(
                 )
             }
         }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun Preview() {
+    GiphyLauncherTheme {
+        GifsListScreen(
+            state = GifsListState(),
+            handle = {},
+            openDetailsScreen = {},
+            openSearchScreen = {}
+        )
     }
 }
