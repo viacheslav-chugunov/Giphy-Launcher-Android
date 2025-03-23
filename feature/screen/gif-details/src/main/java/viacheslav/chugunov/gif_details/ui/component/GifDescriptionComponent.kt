@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import viacheslav.chugunov.core.R
@@ -15,7 +16,9 @@ internal fun GifDescriptionComponent(
     username: String,
     createdAt: String
 ) {
-    Column {
+    Column(
+        modifier = Modifier.testTag("GifDescriptionComponent")
+    ) {
         DescriptionFieldComponent(
             label = stringResource(R.string.title),
             value = title,
