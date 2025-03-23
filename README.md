@@ -12,6 +12,11 @@ The app allows you to browse trending GIFs, search for GIFs by text query, and v
   <img src="https://github.com/viacheslav-chugunov/Giphy-Launcher-Android/blob/main/preview/preview_4.jpg" width="150" >
 </p>
 
+## Download
+
+You can download the latest version from GitHub [Giphy](https://github.com/viacheslav-chugunov/Giphy-Launcher-Android/releases)
+
+
 ## For developers
 
 To work with the service from the source code in debug mode, you will need to specify the API key for Giphy. To do this, you need to register an account on Giphy and get an API key, 
