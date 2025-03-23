@@ -5,7 +5,7 @@ import viacheslav.chugunov.core.util.AppSecrets
 import viacheslav.chugunov.giphy_launcher.BuildConfig
 
 val AppModule = module {
-    factory<AppSecrets> {
+    single<AppSecrets> {
         AppSecrets.Default(
             giphyApiKey = BuildConfig.GIPHY_API_TOKEN
         )

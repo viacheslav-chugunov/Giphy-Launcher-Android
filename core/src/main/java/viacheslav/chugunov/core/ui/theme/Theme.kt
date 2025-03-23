@@ -242,7 +242,7 @@ private val highContrastDarkColorScheme = darkColorScheme(
 @Composable
 fun GiphyLauncherTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    dynamicColor: Boolean = false,
+    dynamicColor: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

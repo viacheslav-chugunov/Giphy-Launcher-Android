@@ -39,6 +39,7 @@ fun LoadingComponent(
             text = message,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(Modifier.weight(1.75f))

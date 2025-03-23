@@ -40,6 +40,7 @@ fun FailureComponent(
             text = message,
             modifier = Modifier.fillMaxWidth(),
             textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurface,
             style = MaterialTheme.typography.titleMedium
         )
         Spacer(Modifier.height(16.dp))

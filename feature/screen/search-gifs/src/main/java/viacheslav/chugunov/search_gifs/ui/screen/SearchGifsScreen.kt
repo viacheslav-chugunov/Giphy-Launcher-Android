@@ -1,5 +1,6 @@
 package viacheslav.chugunov.search_gifs.ui.screen
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -64,7 +65,11 @@ fun SearchGifsScreen(
         keyboard?.show()
     }
 
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.background)
+    ) {
         SearchableTopAppBarComponent(
             query = state.query,
             onQueryChange = { query ->
