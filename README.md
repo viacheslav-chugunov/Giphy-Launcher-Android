@@ -1,6 +1,6 @@
 # Giphy Launcher for Android
 
-The app allows you to browse trending GIFs, search for GIFs by text query, and view detailed information about GIFs from [Giphy](https://giphy.com/).
+A simple [Giphy](https://giphy.com/) launcher for Android that lets you browse a feed of trending gifs, search for gifs, and view the main content of gifs
 
 <p align="center">
   <img src="https://github.com/viacheslav-chugunov/Giphy-Launcher-Android/blob/main/preview/preview_1.jpg" width="150" >
@@ -14,7 +14,7 @@ The app allows you to browse trending GIFs, search for GIFs by text query, and v
 
 ## Download
 
-You can download the latest version from GitHub [Giphy](https://github.com/viacheslav-chugunov/Giphy-Launcher-Android/releases)
+You can download the latest version from GitHub [here](https://github.com/viacheslav-chugunov/Giphy-Launcher-Android/releases)
 
 
 ## For developers
