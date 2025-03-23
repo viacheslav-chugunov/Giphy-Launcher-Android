@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -25,7 +26,15 @@ fun GifsListScreen(
     handle: (GifsListAction) -> Unit,
     openDetailsScreen: (Gif) -> Unit,
     openSearchScreen: () -> Unit,
+    hideSplash: () -> Unit
 ) {
+
+    LaunchedEffect(state.asyncGifs) {
+        if (state.asyncGifs !is AsyncResource.Loading) {
+            hideSplash()
+        }
+    }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -82,7 +91,8 @@ private fun Preview() {
             state = GifsListState(),
             handle = {},
             openDetailsScreen = {},
-            openSearchScreen = {}
+            openSearchScreen = {},
+            hideSplash = {}
         )
     }
 }

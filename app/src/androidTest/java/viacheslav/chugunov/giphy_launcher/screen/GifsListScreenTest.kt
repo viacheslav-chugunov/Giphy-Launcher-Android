@@ -95,7 +95,8 @@ class GifsListScreenTest {
             state = state,
             handle = {},
             openDetailsScreen = {},
-            openSearchScreen = {}
+            openSearchScreen = {},
+            hideSplash = {}
         )
     }
 }

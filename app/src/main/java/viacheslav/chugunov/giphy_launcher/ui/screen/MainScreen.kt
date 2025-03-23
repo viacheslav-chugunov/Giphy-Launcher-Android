@@ -22,7 +22,9 @@ import viacheslav.chugunov.search_gifs.ui.screen.SearchGifsScreen
 import viacheslav.chugunov.search_gifs.ui.screen.SearchGifsViewModel
 
 @Composable
-fun MainScreen() {
+fun MainScreen(
+    hideSplash: () -> Unit
+) {
     val navController = rememberNavController()
 
     NavHost(navController = navController, startDestination = NavDestinations.GifsList) {
@@ -36,7 +38,8 @@ fun MainScreen() {
                 },
                 openSearchScreen = {
                     navController.singleNavigate(NavDestinations.SearchGifs)
-                }
+                },
+                hideSplash = hideSplash
             )
         }
         composable<NavDestinations.GifDetails>(
