@@ -52,7 +52,7 @@ fun GifImageComponent(
     DisposableEffect(Unit) {
         glide
             .asGif()
-            .diskCacheStrategy(DiskCacheStrategy.DATA)
+            .diskCacheStrategy(DiskCacheStrategy.NONE)
             .load(url)
             .into(target)
         onDispose {
