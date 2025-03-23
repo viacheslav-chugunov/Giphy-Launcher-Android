@@ -122,37 +122,6 @@ fun SearchGifsScreen(
                             handle(SearchGifsAction.RequestNewGifs)
                         }
                     )
-
-                    val gridState = rememberLazyGridState()
-                    val canScrollForward = gridState.canScrollForward
-
-                    LaunchedEffect(canScrollForward) {
-                        if (!canScrollForward && gifs.isNotEmpty()) {
-                            handle(SearchGifsAction.RequestNewGifs)
-                        }
-                    }
-
-                    LazyVerticalGrid(
-                        columns = GridCells.Adaptive(150.dp),
-                        verticalArrangement = Arrangement.spacedBy(6.dp),
-                        horizontalArrangement = Arrangement.spacedBy(6.dp),
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(8.dp),
-                        state = gridState
-                    ) {
-                        items(gifs, key = { it.id }) { gif ->
-                            GifImageComponent(
-                                url = gif.previewUrl,
-                                contentDescription = gif.title,
-                                contentScale = ContentScale.Crop,
-                                modifier = Modifier
-                                    .fillMaxWidth()
-                                    .aspectRatio(1f)
-                                    .clip(MaterialTheme.shapes.small)
-                                    .clickable { openDetailsScreen(gif) }
-                            )
-                        }
-                    }
                 }
             }
         }
