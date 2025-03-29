@@ -22,7 +22,6 @@ class SearchGifsViewModel(
     private val coroutineDispatchers: CoroutineDispatchers
 ) : BaseViewModel<SearchGifsState, SearchGifsAction>(SearchGifsState()) {
     private val queryFlow = MutableSharedFlow<String>(replay = 1)
-    private var isGifsLoading: Boolean = false
     private var gifsPaging: Paging = Paging.EMPTY
     private val loadGifsMutex = Mutex()
 
@@ -72,11 +71,9 @@ class SearchGifsViewModel(
         }
         viewModelScope.launch(coroutineDispatchers.io) {
             loadGifsMutex.withLock {
-                if (isGifsLoading) return@launch
                 val offset = gifsPaging.got
                 if (offset >= 5000) return@launch
                 state = state.copy(activeGifsPaging = true)
-                isGifsLoading = true
                 val asyncPagingGifs = gifsNetworkRepository.search(query, 50,  offset)
                 when (asyncPagingGifs) {
                     is AsyncResource.Failure -> {
@@ -99,7 +96,6 @@ class SearchGifsViewModel(
                     }
                     else -> {}
                 }
-                isGifsLoading = false
             }
         }
     }

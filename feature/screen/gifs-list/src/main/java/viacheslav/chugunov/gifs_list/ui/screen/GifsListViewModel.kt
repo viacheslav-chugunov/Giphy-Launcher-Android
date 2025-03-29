@@ -15,7 +15,6 @@ class GifsListViewModel(
     private val gifsNetworkRepository: GifsNetworkRepository,
     private val coroutineDispatchers: CoroutineDispatchers
 ) : BaseViewModel<GifsListState, GifsListAction>(GifsListState()) {
-    private var isGifsLoading: Boolean = false
     private var gifsPaging: Paging = Paging.EMPTY
     private val loadGifsMutex = Mutex()
 
@@ -30,7 +29,7 @@ class GifsListViewModel(
                 loadGifs()
             }
             GifsListAction.RequestNewGifs -> {
-                state = state.copy(activeGifsPaging = !isGifsLoading)
+                state = state.copy(activeGifsPaging = !loadGifsMutex.isLocked)
                 loadGifs()
             }
         }
@@ -39,8 +38,6 @@ class GifsListViewModel(
     private fun loadGifs() {
         viewModelScope.launch(coroutineDispatchers.io) {
             loadGifsMutex.withLock {
-                if (isGifsLoading) return@launch
-                isGifsLoading = true
                 val offset = gifsPaging.got
                 if (offset >= 500) return@launch
                 val asyncPagingGifs = gifsNetworkRepository.trending(limit = 50,  offset = offset)
@@ -65,7 +62,6 @@ class GifsListViewModel(
                     }
                     else -> {}
                 }
-                isGifsLoading = false
             }
         }
     }
